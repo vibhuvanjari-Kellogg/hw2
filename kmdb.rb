@@ -103,6 +103,8 @@ new_movie1["rated"] = "PG-13"
 new_movie1["studio_id"] = wb["id"]
 new_movie1.save
 
+movie1 = Movie.find_by({"title" => "Batman Begins"})
+
 new_movie2 = Movie.new
 new_movie2["title"] = "The Dark Knight"
 new_movie2["year_released"] = 2008
@@ -110,12 +112,16 @@ new_movie2["rated"] = "PG-13"
 new_movie2["studio_id"] = wb["id"]
 new_movie2.save
 
+movie2 = Movie.find_by({"title" => "The Dark Knight"})
+
 new_movie3 = Movie.new
 new_movie3["title"] = "The Dark Knight Rises"
 new_movie3["year_released"] = 2012
 new_movie3["rated"] = "PG-13"
 new_movie3["studio_id"] = wb["id"]
 new_movie3.save
+
+movie3 = Movie.find_by({"title" => "The Dark Knight Rises"})
 
 new_actor1 = Actor.new
 new_actor1["name"] = "Christian Bale"
@@ -163,62 +169,77 @@ new_actor11.save
 
 new_role1 = Role.new
 new_role1["character_name"] = "Bruce Wayne"
+new_role1["movie_id"] = movie1["id"]
 new_role1.save
 
 new_role2 = Role.new
 new_role2["character_name"] = "Alfred"
+new_role2["movie_id"] = movie1["id"]
 new_role2.save
 
 new_role3 = Role.new
 new_role3["character_name"] = "Ra's Al Ghul"
+new_role3["movie_id"] = movie1["id"]
 new_role3.save
 
 new_role4 = Role.new
 new_role4["character_name"] = "Rachel Dawes"
+new_role4["movie_id"] = movie1["id"]
 new_role4.save
 
 new_role5 = Role.new
 new_role5["character_name"] = "Commissioner Gordon"
+new_role5["movie_id"] = movie1["id"]
 new_role5.save
 
 new_role6 = Role.new
 new_role6["character_name"] = "Bruce Wayne"
+new_role6["movie_id"] = movie2["id"]
 new_role6.save
 
 new_role7 = Role.new
 new_role7["character_name"] = "Joker"
+new_role7["movie_id"] = movie2["id"]
 new_role7.save
 
 new_role8 = Role.new
 new_role8["character_name"] = "Harvey Dent"
+new_role8["movie_id"] = movie2["id"]
 new_role8.save
 
 new_role9 = Role.new
 new_role9["character_name"] = "Alfred"
+new_role9["movie_id"] = movie2["id"]
 new_role9.save
 
 new_role10 = Role.new
 new_role10["character_name"] = "Rachel Dawes"
+new_role10["movie_id"] = movie2["id"]
 new_role10.save
 
 new_role11 = Role.new
 new_role11["character_name"] = "Bruce Wayne"
+new_role11["movie_id"] = movie3["id"]
 new_role11.save
 
 new_role12 = Role.new
 new_role12["character_name"] = "Commissioner Gordon"
+new_role12["movie_id"] = movie3["id"]
 new_role12.save
 
 new_role13 = Role.new
 new_role13["character_name"] = "Bane"
+new_role13["movie_id"] = movie3["id"]
 new_role13.save
 
 new_role14 = Role.new
 new_role14["character_name"] = "John Blake"
+new_role14["movie_id"] = movie3["id"]
 new_role14.save
 
 new_role15 = Role.new
 new_role15["character_name"] = "Selina Kyle"
+new_role15["movie_id"] = movie3["id"]
 new_role15.save
 
 puts "movies: #{Movie.all.count}"
@@ -235,10 +256,10 @@ puts ""
 # TODO!
 
 wb_movies = Movie.where({"studio_id" => wb["id"]})
-puts "wbmovies: #{wb_movies.all.count}"
 
 for m in wb_movies
-    puts "#{m.title.ljust(25)}\t#{m.year_released}\t#{m.rated}"
+    studio_name = Studio.find(m.studio_id).name
+    puts "#{m.title.ljust(20)}\t#{m.year_released}\t#{m.rated}\t#{studio_name}"
 end
 
 # Prints a header for the cast output
@@ -249,3 +270,24 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+
+movie1_roles = Role.where({"movie_id" => movie1["id"]})
+
+movie2_roles = Role.where({"movie_id" => movie2["id"]})
+
+movie3_roles = Role.where({"movie_id" => movie3["id"]})
+
+for r in movie1_roles
+    movie_name = Movie.find(r.movie_id).title
+    puts "#{movie_name.ljust(20)}\t#{r.character_name}"
+end
+
+for r in movie2_roles
+    movie_name = Movie.find(r.movie_id).title
+    puts "#{movie_name.ljust(20)}\t#{r.character_name}"
+end
+
+for r in movie3_roles
+    movie_name = Movie.find(r.movie_id).title
+    puts "#{movie_name.ljust(20)}\t#{r.character_name}"
+end
