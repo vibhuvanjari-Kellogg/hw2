@@ -94,22 +94,27 @@ new_studio = Studio.new
 new_studio["name"] = "Warner Bros."
 new_studio.save
 
+wb = Studio.find_by({"name" => "Warner Bros."})
+
 new_movie1 = Movie.new
 new_movie1["title"] = "Batman Begins"
 new_movie1["year_released"] = 2005
 new_movie1["rated"] = "PG-13"
+new_movie1["studio_id"] = wb["id"]
 new_movie1.save
 
 new_movie2 = Movie.new
 new_movie2["title"] = "The Dark Knight"
 new_movie2["year_released"] = 2008
 new_movie2["rated"] = "PG-13"
+new_movie2["studio_id"] = wb["id"]
 new_movie2.save
 
 new_movie3 = Movie.new
 new_movie3["title"] = "The Dark Knight Rises"
 new_movie3["year_released"] = 2012
 new_movie3["rated"] = "PG-13"
+new_movie3["studio_id"] = wb["id"]
 new_movie3.save
 
 new_actor1 = Actor.new
@@ -228,6 +233,13 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
+
+wb_movies = Movie.where({"studio_id" => wb["id"]})
+puts "wbmovies: #{wb_movies.all.count}"
+
+for m in wb_movies
+    puts "#{m.title.ljust(25)}\t#{m.year_released}\t#{m.rated}"
+end
 
 # Prints a header for the cast output
 puts ""
