@@ -127,119 +127,156 @@ new_actor1 = Actor.new
 new_actor1["name"] = "Christian Bale"
 new_actor1.save
 
+cb = Actor.find_by({"name" => "Christian Bale"})
+
 new_actor2 = Actor.new
 new_actor2["name"] = "Michael Caine"
 new_actor2.save
+
+mc = Actor.find_by({"name" => "Michael Caine"})
 
 new_actor3 = Actor.new
 new_actor3["name"] = "Liam Neeson"
 new_actor3.save
 
+ln = Actor.find_by({"name" => "Liam Neeson"})
+
 new_actor4 = Actor.new
 new_actor4["name"] = "Katie Holmes"
 new_actor4.save
+
+kh = Actor.find_by({"name" => "Katie Holmes"})
 
 new_actor5 = Actor.new
 new_actor5["name"] = "Gary Oldman"
 new_actor5.save
 
+go = Actor.find_by({"name" => "Gary Oldman"})
+
 new_actor6 = Actor.new
 new_actor6["name"] = "Heath Ledger"
 new_actor6.save
+
+hl = Actor.find_by({"name" => "Heath Ledger"})
 
 new_actor7 = Actor.new
 new_actor7["name"] = "Aaron Eckhart"
 new_actor7.save
 
+ae = Actor.find_by({"name" => "Aaron Eckhart"})
+
 new_actor8 = Actor.new
 new_actor8["name"] = "Maggie Gyllenhaal"
 new_actor8.save
+
+mg = Actor.find_by({"name" => "Maggie Gyllenhaal"})
 
 new_actor9 = Actor.new
 new_actor9["name"] = "Tom Hardy"
 new_actor9.save
 
+th = Actor.find_by({"name" => "Tom Hardy"})
+
 new_actor10 = Actor.new
 new_actor10["name"] = "Joseph Gordon-Levitt"
 new_actor10.save
+
+jg = Actor.find_by({"name" => "Joseph Gordon-Levitt"})
 
 new_actor11 = Actor.new
 new_actor11["name"] = "Anne Hathaway"
 new_actor11.save
 
+ah = Actor.find_by({"name" => "Anne Hathaway"})
+
 new_role1 = Role.new
 new_role1["character_name"] = "Bruce Wayne"
 new_role1["movie_id"] = movie1["id"]
+new_role1["actor_id"] = cb["id"]
 new_role1.save
 
 new_role2 = Role.new
 new_role2["character_name"] = "Alfred"
 new_role2["movie_id"] = movie1["id"]
+new_role2["actor_id"] = mc["id"]
 new_role2.save
 
 new_role3 = Role.new
 new_role3["character_name"] = "Ra's Al Ghul"
 new_role3["movie_id"] = movie1["id"]
+new_role3["actor_id"] = ln["id"]
 new_role3.save
 
 new_role4 = Role.new
 new_role4["character_name"] = "Rachel Dawes"
 new_role4["movie_id"] = movie1["id"]
+new_role4["actor_id"] = kh["id"]
 new_role4.save
 
 new_role5 = Role.new
 new_role5["character_name"] = "Commissioner Gordon"
 new_role5["movie_id"] = movie1["id"]
+new_role5["actor_id"] = go["id"]
 new_role5.save
 
 new_role6 = Role.new
 new_role6["character_name"] = "Bruce Wayne"
 new_role6["movie_id"] = movie2["id"]
+new_role6["actor_id"] = cb["id"]
 new_role6.save
 
 new_role7 = Role.new
 new_role7["character_name"] = "Joker"
 new_role7["movie_id"] = movie2["id"]
+new_role7["actor_id"] = hl["id"]
 new_role7.save
 
 new_role8 = Role.new
 new_role8["character_name"] = "Harvey Dent"
 new_role8["movie_id"] = movie2["id"]
+new_role8["actor_id"] = ae["id"]
 new_role8.save
 
 new_role9 = Role.new
 new_role9["character_name"] = "Alfred"
 new_role9["movie_id"] = movie2["id"]
+new_role9["actor_id"] = mc["id"]
 new_role9.save
 
 new_role10 = Role.new
 new_role10["character_name"] = "Rachel Dawes"
 new_role10["movie_id"] = movie2["id"]
+new_role10["actor_id"] = mg["id"]
 new_role10.save
 
 new_role11 = Role.new
 new_role11["character_name"] = "Bruce Wayne"
 new_role11["movie_id"] = movie3["id"]
+new_role11["actor_id"] = cb["id"]
 new_role11.save
 
 new_role12 = Role.new
 new_role12["character_name"] = "Commissioner Gordon"
 new_role12["movie_id"] = movie3["id"]
+new_role12["actor_id"] = go["id"]
 new_role12.save
 
 new_role13 = Role.new
 new_role13["character_name"] = "Bane"
 new_role13["movie_id"] = movie3["id"]
+new_role13["actor_id"] = th["id"]
 new_role13.save
 
 new_role14 = Role.new
 new_role14["character_name"] = "John Blake"
 new_role14["movie_id"] = movie3["id"]
+new_role14["actor_id"] = jg["id"]
 new_role14.save
 
 new_role15 = Role.new
 new_role15["character_name"] = "Selina Kyle"
 new_role15["movie_id"] = movie3["id"]
+new_role15["actor_id"] = ah["id"]
 new_role15.save
 
 puts "movies: #{Movie.all.count}"
@@ -279,15 +316,18 @@ movie3_roles = Role.where({"movie_id" => movie3["id"]})
 
 for r in movie1_roles
     movie_name = Movie.find(r.movie_id).title
-    puts "#{movie_name.ljust(20)}\t#{r.character_name}"
+    actor_name = Actor.find(r.actor_id).name
+    puts "#{movie_name.ljust(20)}\t#{actor_name.ljust(20)}\t#{r.character_name}"
 end
 
 for r in movie2_roles
     movie_name = Movie.find(r.movie_id).title
-    puts "#{movie_name.ljust(20)}\t#{r.character_name}"
+    actor_name = Actor.find(r.actor_id).name
+    puts "#{movie_name.ljust(20)}\t#{actor_name.ljust(20)}\t#{r.character_name}"
 end
 
 for r in movie3_roles
     movie_name = Movie.find(r.movie_id).title
-    puts "#{movie_name.ljust(20)}\t#{r.character_name}"
+    actor_name = Actor.find(r.actor_id).name
+    puts "#{movie_name.ljust(20)}\t#{actor_name.ljust(20)}\t#{r.character_name}"
 end
